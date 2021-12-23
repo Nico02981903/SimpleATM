@@ -1,0 +1,95 @@
+using System;
+
+namespace ATM
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // the account number and password
+            string accountNumber = "9762073223";
+            string password = "a2f9n5Rfs";
+            // the amount of money in the account
+            int moneyInAccount = 8384;
+
+            bool correctLogin = false;
+            bool loggedIn = false;
+            Console.WriteLine("Welcome to your Bankakount.");
+
+            while (correctLogin == false) 
+            {
+                Console.WriteLine("Please log in\n");
+                Console.WriteLine("Account number :");
+                string userAccountNumber = Console.ReadLine();
+                Console.WriteLine("Password :");
+                string userPassword = Console.ReadLine();
+
+                if (userAccountNumber == accountNumber && password == userPassword)
+                {
+                    Console.WriteLine($"Welcome to your Bankakount, user {accountNumber}.");
+                    Console.WriteLine($"You have {moneyInAccount}$ in your account.");
+                    correctLogin = true;
+                    loggedIn = true;
+                }
+                else
+                {
+                    Console.WriteLine("Account number or password is incorrect.");
+                }
+
+
+
+            }
+            while (loggedIn == true)
+            {
+                Console.WriteLine("Do you wish to : \n Withdraw \n Deposit \n Log out");
+                string userInput = Console.ReadLine();
+                // withdrawing money
+                if (userInput == "withdraw" || userInput == "Withdraw")
+                {
+                    Console.WriteLine("How much money ($) do you wish to withdraw?");
+                    string amountToWithdrawString = Console.ReadLine();
+                    int amountToWithdrawInt;
+                    bool successWithdraw = Int32.TryParse(amountToWithdrawString, out amountToWithdrawInt);
+                    if (amountToWithdrawInt >= 2500)
+                    {
+                        Console.WriteLine("Error. If you want to withdraw more than 2500$, please go to your Lokalbank and talk to a cashier.");
+                    }
+                    else
+                    {
+                        moneyInAccount = moneyInAccount - amountToWithdrawInt;
+                        Console.WriteLine($"Operation successful. You now have {moneyInAccount}$ in your account");
+                    }
+
+                }
+                // depositing money
+                else if (userInput == "deposit" || userInput == "Deposit")
+                {
+                    Console.WriteLine("How much money ($) do you wish to deposit?");
+                    string amountToDepositString = Console.ReadLine();
+                    int amountToDepositInt;
+                    bool successDeposit = Int32.TryParse(amountToDepositString, out amountToDepositInt);
+                    if (amountToDepositInt >= 2500)
+                    {
+                        Console.WriteLine("Error. If you want to deposit more than 2500$, please go to your Lokalbank and talk to a cashier.");
+                    }
+                    else
+                    {
+                        moneyInAccount = moneyInAccount + amountToDepositInt;
+                        Console.WriteLine($"Operation successful. You now have {moneyInAccount}$ in your account");
+                    }
+
+                }
+                // log out
+                else if (userInput == "log out" || userInput == "Log out" || userInput == "logout" || userInput == "Logout")
+                {
+                    Console.WriteLine("Thanks for using Bankakount. Have a nice day!");
+                    loggedIn = false;
+                }
+                else
+                {
+                    Console.WriteLine("Error. Did you make a typo?");
+                }
+            }
+        }
+    }
+}
